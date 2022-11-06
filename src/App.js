@@ -37,12 +37,8 @@ function AddSongContainer({ sendData }) {
   }
 
   function handleBtn() {
-    // console.log("title: ", title);
-    // console.log("artist: ", artist);
-    // console.log("genre: ", genre);
-    // console.log("rating: ", rating, " star(s)");
-
     sendData({
+      id: Math.random(),
       title: title,
       artist: artist,
       genre: genre,
@@ -52,7 +48,6 @@ function AddSongContainer({ sendData }) {
     setTitle("");
     setArtist("");
     setGenre("pop");
-    setRating("3");
   }
 
   return (
@@ -111,6 +106,10 @@ function AddSongContainer({ sendData }) {
   );
 }
 
+function DeleteBtn({ onclick, btnText }) {
+  return <button onClick={onclick}>{btnText}</button>;
+}
+
 function PlaylistContainer(props) {
   return (
     <>
@@ -118,15 +117,21 @@ function PlaylistContainer(props) {
       <ul>
         {props.playList.map((e) => {
           return (
-            <li key={Math.random()}>
+            <li key={Math.random()} id={e.id}>
               Title: {e.title} <br />
               Artist: {e.artist} <br />
               Genre: {e.genre} <br />
-              Rating: {e.rating} star(s)
+              Rating: {e.rating} star(s) <br />
+              <DeleteBtn onclick={props.onclick} btnText="delete this song" />
             </li>
           );
         })}
       </ul>
+      {props.playList.length > 0 ? (
+        <DeleteBtn onclick={props.onclick} btnText="Delete all" />
+      ) : (
+        <p>It feels a bit empty in here...</p>
+      )}
     </>
   );
 }
@@ -139,10 +144,23 @@ function MainContent() {
     setPlayList(newList);
   }
 
+  function onclick(event) {
+    let self = event.target;
+    if (self.textContent === "Delete all") {
+      setPlayList([]);
+    } else {
+      let parentOfSelf = self.parentNode;
+      let parentId = parentOfSelf.id;
+
+      let newPlayList = playList.filter((i) => i.id != parentId);
+      setPlayList(newPlayList);
+    }
+  }
+
   return (
     <>
       <AddSongContainer sendData={sendData} />
-      <PlaylistContainer playList={playList} />
+      <PlaylistContainer playList={playList} onclick={onclick} />
     </>
   );
 }
