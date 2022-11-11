@@ -1,0 +1,41 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 2em;
+}
+
+.add-song-container {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+
+.add-song-container * {
+  margin-top: 0.5em;
+}
+
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+
+.addBtn {
+  border-radius: 10px;
+}
+
+.list {
+  list-style: none;
+}
+
+.list * {
+  margin-top: 0.5em;
+  padding-bottom: 1em;
+  border-bottom: dotted 2px black;
+}
+
+.delete {
+  width: 15em;
+  border-bottom: black solid 1px;
+}
