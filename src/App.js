@@ -3,10 +3,37 @@ import React, { useState } from "react";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
+function AboutUs() {
+  return (
+    <>
+      <Header />
+      <AboutUsContent />
+    </>
+  );
+}
+
+function AboutUsContent() {
+  return (
+    <>
+      <h1>About me and us and everyone!</h1>
+    </>
+  );
+}
+
+function NavBar() {
+  return (
+    <nav>
+      <Link to="/MainPage">Main</Link> |{" "}
+      <Link to="/AboutUsContent">About us</Link>
+    </nav>
+  );
+}
+
 function Header() {
   return (
     <div className="Header">
       <h1>Songsaver</h1>
+      <NavBar />
     </div>
   );
 }
@@ -167,12 +194,24 @@ function MainContent() {
   );
 }
 
-function App() {
+function MainPage() {
   return (
-    <div className="App">
+    <>
       <Header />
       <MainContent />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="MainPage" element={<MainPage />} />
+        <Route path="AboutUsContent" element={<AboutUs />} />
+      </Routes>
+      <div className="App"></div>
+    </Router>
   );
 }
 
